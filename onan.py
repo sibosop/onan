@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 import os
+import sys
+proj = os.environ['HOME'] + "//GitProjects/onan"
+unbuff = os.environ['PYTHONUNBUFFERED']
+sys.path.append(proj+"/EventHandler")
+
 import random
 import specs
-import sys
+
 import datetime
 import time
 import pygame
