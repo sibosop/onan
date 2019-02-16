@@ -10,7 +10,6 @@ class CCEvent(object):
     self.chan = chan
     
   def fire(self,ms):
-    print "onan fire"
     cc = getVal(self.cc)
     val = getVal(self.val)
     chan = getVal(self.chan)
