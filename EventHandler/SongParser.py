@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import Singleton
+import Trigger
 
 debug = True
 
@@ -8,8 +9,7 @@ class SongParser(object):
   
   def __init__(self,spec):
     self.valTypes = {
-      "const" : self.doConst
-      ,"random" : self.doRandom
+      "random" : self.doRandom
     }
     self.events = {
       "rp" : self.parseRepeat
@@ -18,13 +18,18 @@ class SongParser(object):
     self.parseSeq(spec['top'])
     
   def doRandom(self,spec):
-    if debug: "random %d %d"%(spec['min'],spec['max'])
+    
+    min = self.getVal(spec['min'])
+    max = self.getVal(spec['max'])
+    if debug: "random %d %d"%(min,max)
     return 0  
   
   def parseNote(self,spec):
+    tg = self.getVal(spec['tg'])
     note = self.getVal(spec['note'])
     vel = self.getVal(spec['vel'])
-    if debug: print "note %d vel %d"%(note,vel)
+    len = self.getVal(spec['len'])
+    if debug: print "tg %s note %d vel %d len %d"%(tg,note,vel,len)
     
   def parseSeq(self,spec):
     for e in spec:
@@ -36,14 +41,29 @@ class SongParser(object):
     if debug: print "doConst",spec
     return spec['val']
     
-  def getVal(self,spec) :
-    if debug: print "getVal",spec
-    return self.valTypes[spec['type']](spec)
-
-
+  def getVal(self,inVal):
+    if debug: print "inVal type: %s"%inVal.__class__.__name__
+    rval = 0
+    if inVal.__class__.__name__ == 'int':
+      rval = inVal 
+    elif inVal.__class__.__name__ == 'unicode':
+      v = inVal.split(':')
+      if len(v) == 1:
+        rval = self.lookup(inVal)
+      else:
+        rval = Trigger.Trigger(inVal)
+    elif inVal.__class__.__name__ == 'dict':
+      k = inVal.keys()[0]
+      print "inval key: %s"%k
+      rval = self.valTypes[k](inVal[k])
+    else:
+      raise Exception ("can't parse %s"%inVal)
+    return rval
+    
   def parseRepeat(self,spec):
     if debug: print "parse repeat",spec
-    reps = self.getVal(spec['reps'])
+    tg = self.getVal(spec['tg'])
+    reps = self.getVal(spec['cnt'])
     if debug: print "reps %d"%reps
     self.parseSeq(spec['seq'])
   

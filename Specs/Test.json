@@ -1,21 +1,32 @@
 {
 	"top": [{
+    "id":"rep 2 notes",
 		"rp": {
-			"reps": {
-				"type": "const",
-				"val": 10
-			},
+			"tg": 0,
+			"cnt": 10,
 			"len": "5:1:00",
 			"seq": [{
 				"nt": {
-					"note": {
-						"type": "const",
-						"val": 72
-					},
+					"tg": 0,
+					"len": 96,
+					"note": 72,
 					"vel": {
-						"type": "random",
-						"min": 1,
-						"max": 127
+						"random": {
+							"min": 1,
+							"max": 127
+						}
+					}
+				}
+			},{
+				"nt": {
+					"tg": "5:2:0",
+					"len": 96,
+					"note": 74,
+					"vel": {
+						"random": {
+							"min": 1,
+							"max": 127
+						}
 					}
 				}
 			}]
