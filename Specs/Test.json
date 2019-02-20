@@ -1,3 +1,24 @@
 {
-  "onan" : "main"
+	"top": [{
+		"rp": {
+			"reps": {
+				"type": "const",
+				"val": 10
+			},
+			"len": "5:1:00",
+			"seq": [{
+				"nt": {
+					"note": {
+						"type": "const",
+						"val": 72
+					},
+					"vel": {
+						"type": "random",
+						"min": 1,
+						"max": 127
+					}
+				}
+			}]
+		}
+	}]
 }

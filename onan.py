@@ -1,33 +1,32 @@
 #!/usr/bin/env python
 import os
 import sys
-proj = os.environ['HOME'] + "//GitProjects/onan"
-unbuff = os.environ['PYTHONUNBUFFERED']
+home = os.environ['HOME']
+proj = "%s/GitProjects/onan"%home
 sys.path.append(proj+"/EventHandler")
-
 import random
 import specs
-
+import argparse
 import datetime
 import time
 import pygame
 from MidiScheduler import MidiScheduler
-
-
-def usage():
-  print "usages:",sys.argv[0]," pathToConfigFile"
-  os._exit(-1)
+debug=True
+defaultSpecPath="%s/Specs/onan.json"%proj
 
 if __name__ == '__main__':
   random.seed()
   pname = sys.argv[0]
   os.environ['DISPLAY']=":0.0"
   os.chdir(os.path.dirname(sys.argv[0]))
-  print(pname+" at "+datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))  
-  if len (sys.argv) < 2:
-    usage()
-  specs.setup(sys.argv[1])
+  print(pname+" at "+datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))
+  parser = argparse.ArgumentParser() 
+  parser.add_argument('-c','--config',nargs=1,type=str,default=[defaultSpecPath],help='specify different config file')
+  args = parser.parse_args()
+  if debug: print("config path"+args.config[0])
+  specs = specs.specs(args.config[0])
+  print specs.specs
   pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=4096)
   pygame.init()
-  ms = MidiScheduler(inPort='IAC Driver IAC Bus 2',outPort='IAC Driver IAC Bus 1')
-  ms.run()
+  #ms = MidiScheduler(inPort='IAC Driver IAC Bus 2',outPort='IAC Driver IAC Bus 1')
+  #ms.run()
