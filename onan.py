@@ -10,6 +10,7 @@ import argparse
 import datetime
 import time
 import pygame
+import SongParser
 from MidiScheduler import MidiScheduler
 debug=True
 defaultSpecPath="%s/Specs/onan.json"%proj
@@ -26,7 +27,8 @@ if __name__ == '__main__':
   if debug: print("config path"+args.config[0])
   specs = specs.specs(args.config[0])
   print specs.specs
-  pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=4096)
-  pygame.init()
+  songParser = SongParser.SongParser(specs.specs)
+  #pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=4096)
+  #pygame.init()
   #ms = MidiScheduler(inPort='IAC Driver IAC Bus 2',outPort='IAC Driver IAC Bus 1')
   #ms.run()
