@@ -1,35 +1,49 @@
 {
-	"top": [{
-    "id":"rep 2 notes",
-		"rp": {
-			"tg": 0,
-			"cnt": 10,
-			"len": "5:1:00",
-			"seq": [{
-				"nt": {
-					"tg": 0,
-					"len": 96,
-					"note": 72,
-					"vel": {
-						"random": {
-							"min": 1,
-							"max": 127
+	"tempo": 120,
+	"measureSize": 96,
+	"loopSize": 5,
+	"top": {
+		"id": "rep 2 notes",
+		"offset": 0,
+		"list": [{
+			"rp": {
+				"tg": 0,
+				"cnt": 10,
+				"len": [5, 1, 0],
+				"seq": {
+					"offset": 72,
+					"list": [{
+						"nt": {
+							"tg": 0,
+							"len": 96,
+							"note": 0,
+							"vel": {
+								"random": {
+									"min": 1,
+									"max": 127
+								}
+							}
 						}
-					}
-				}
-			},{
-				"nt": {
-					"tg": "5:2:0",
-					"len": 96,
-					"note": 74,
-					"vel": {
-						"random": {
-							"min": 1,
-							"max": 127
+					}, {
+						"nt": {
+							"tg": [{
+								"random": {
+									"min": 1,
+									"max": 5
+								}
+							}, 2, 0],
+							"len": 96,
+							"note": 7,
+							"vel": {
+								"random": {
+									"min": 1,
+									"max": 127
+								}
+							}
 						}
-					}
+					}]
 				}
-			}]
-		}
-	}]
+			}
+		}]
+	}
 }
